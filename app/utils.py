@@ -1,6 +1,7 @@
 import logging as log
 import pandas as pd
-
+import nltk
+from nltk.tokenize import word_tokenize
 
 logger = log.getLogger(__name__)
 log.basicConfig(level=log.ERROR)
@@ -54,3 +55,22 @@ def remove_duplicates(df):
     cleaned_df = df.drop_duplicates()
 
     return cleaned_df
+
+
+def tokenize_dataframe(df, column_name):
+    """
+    Tokenizes text in a specified column of a DataFrame.
+
+    Args:
+    df (DataFrame): Input DataFrame.
+    column_name (str): Name of the column containing text to be tokenized.
+
+    Returns:
+    DataFrame: DataFrame with tokenized text added as a new column.
+    """
+    nltk.download("punkt")
+
+    # Tokenization for each row in column
+    df["tokens"] = df[column_name].apply(lambda x: word_tokenize(x))
+    return df
+
