@@ -3,9 +3,16 @@ import pandas as pd
 import nltk
 from nltk.tokenize import word_tokenize
 from nltk.stem import PorterStemmer
+from nltk.corpus import stopwords
 
+# Logging section
 logger = log.getLogger(__name__)
 log.basicConfig(level=log.ERROR)
+
+# Natural Language Toolkit section
+nltk.download("punkt")
+nltk.download("stopwords")
+stop_words = set(stopwords.words("english"))
 
 
 def load_csv_data(file_path):
@@ -69,8 +76,6 @@ def tokenize_dataframe(df, column_name):
     Returns:
     DataFrame: DataFrame with tokenized text added as a new column.
     """
-    nltk.download("punkt")
-
     # Tokenization for each row in column
     df["tokens"] = df[column_name].apply(lambda x: word_tokenize(x))
     return df
@@ -95,3 +100,17 @@ def stem_tokens(tokens):
     stemmed_text = " ".join(stemmed_tokens)
 
     return stemmed_text
+
+
+def remove_stopwords(tokens):
+    """
+    Removes stopwords from a list of tokens.
+
+    Args:
+    tokens (list of str): List of tokens.
+
+    Returns:
+    list of str: List of tokens with stopwords removed.
+    """
+    filtered_tokens = [token for token in tokens if token.lower() not in stop_words]
+    return filtered_tokens
