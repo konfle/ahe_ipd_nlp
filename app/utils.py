@@ -48,6 +48,7 @@ def remove_rows_with_missing_values(df):
     DataFrame: DataFrame with rows containing missing values removed.
     """
     cleaned_df = df.dropna()
+
     return cleaned_df
 
 
@@ -79,6 +80,7 @@ def tokenize_dataframe(df, column_name):
     """
     # Tokenization for each row in column
     df["tokens"] = df[column_name].apply(lambda x: word_tokenize(x))
+
     return df
 
 
@@ -90,8 +92,9 @@ def stem_tokens(tokens):
     tokens (list of str): List of tokens.
 
     Returns:
-    list: Stemmed text.
+    list of str: Stemmed text.
     """
+    # Initialization of PorterStemmer object
     stemmer = PorterStemmer()
 
     # Stemming for each token
@@ -111,6 +114,7 @@ def remove_stopwords(tokens):
     list of str: List of tokens with stopwords removed.
     """
     filtered_tokens = [token for token in tokens if token.lower() not in stop_words]
+
     return filtered_tokens
 
 
