@@ -2,6 +2,7 @@ import logging as log
 import pandas as pd
 import nltk
 from nltk.tokenize import word_tokenize
+from nltk.stem import PorterStemmer
 
 logger = log.getLogger(__name__)
 log.basicConfig(level=log.ERROR)
@@ -74,3 +75,23 @@ def tokenize_dataframe(df, column_name):
     df["tokens"] = df[column_name].apply(lambda x: word_tokenize(x))
     return df
 
+
+def stem_tokens(tokens):
+    """
+    Stems a list of tokens using Porter Stemmer.
+
+    Args:
+    tokens (list of str): List of tokens.
+
+    Returns:
+    str: Stemmed text.
+    """
+    stemmer = PorterStemmer()
+
+    # Stemming for each token
+    stemmed_tokens = [stemmer.stem(token) for token in tokens]
+
+    # Merge tokens into sentence
+    stemmed_text = " ".join(stemmed_tokens)
+
+    return stemmed_text
