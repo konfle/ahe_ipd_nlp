@@ -2,7 +2,8 @@ import unittest
 import pandas as pd
 from app.utils import (load_csv_data,
                        remove_rows_with_missing_values,
-                       remove_duplicates)
+                       remove_duplicates,
+                       stem_tokens)
 
 
 class TestLoadCSVData(unittest.TestCase):
@@ -58,6 +59,31 @@ class TestRemoveDuplicates(unittest.TestCase):
         df = pd.DataFrame(data)
         cleaned_df = remove_duplicates(df)
         self.assertTrue(cleaned_df.equals(df))
+
+
+class TestStemTokens(unittest.TestCase):
+    def test_stem_basic_words(self):
+        tokens = ["running", "played", "beautiful"]
+        expected_stems = ["run", "play", "beauti"]
+        stemmed_text = stem_tokens(tokens)
+        self.assertEqual(stemmed_text.split(), expected_stems)
+
+    def test_stem_empty_tokens(self):
+        tokens = []
+        stemmed_text = stem_tokens(tokens)
+        self.assertEqual(stemmed_text, "")
+
+    def test_stem_flexion(self):
+        tokens = ["running", "ran", "runs"]
+        expected_stems = ["run", "ran", "run"]
+        stemmed_text = stem_tokens(tokens)
+        self.assertEqual(stemmed_text.split(), expected_stems)
+
+    def test_stem_special_cases(self):
+        tokens = ["won't", "friend's"]
+        expected_stems = ["won't", "friend'"]
+        stemmed_text = stem_tokens(tokens)
+        self.assertEqual(stemmed_text.split(), expected_stems)
 
 
 if __name__ == '__main__':
