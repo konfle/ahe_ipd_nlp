@@ -3,7 +3,8 @@ import pandas as pd
 from app.utils import (load_csv_data,
                        remove_rows_with_missing_values,
                        remove_duplicates,
-                       stem_tokens)
+                       stem_tokens,
+                       remove_stopwords)
 
 
 class TestLoadCSVData(unittest.TestCase):
@@ -84,6 +85,28 @@ class TestStemTokens(unittest.TestCase):
         expected_stems = ["won't", "friend'"]
         stemmed_text = stem_tokens(tokens)
         self.assertEqual(stemmed_text.split(), expected_stems)
+
+
+class TestRemoveStopwords(unittest.TestCase):
+    def test_remove_stopwords_basic(self):
+        tokens = ["this", "is", "a", "sample", "sentence", "with", "some", "stopwords"]
+        filtered_tokens = remove_stopwords(tokens)
+        self.assertEqual(filtered_tokens, ["sample", "sentence", "stopwords"])
+
+    def test_remove_stopwords_empty(self):
+        tokens = []
+        filtered_tokens = remove_stopwords(tokens)
+        self.assertEqual(filtered_tokens, [])
+
+    def test_remove_stopwords_all_stopwords(self):
+        tokens = ["the", "and", "to", "of", "a", "in"]
+        filtered_tokens = remove_stopwords(tokens)
+        self.assertEqual(filtered_tokens, [])
+
+    def test_remove_stopwords_mixed_case(self):
+        tokens = ["This", "Is", "A", "Sample", "Sentence", "With", "Some", "Stopwords"]
+        filtered_tokens = remove_stopwords(tokens)
+        self.assertEqual(filtered_tokens, ["Sample", "Sentence", "Stopwords"])
 
 
 if __name__ == '__main__':
