@@ -4,6 +4,7 @@ import nltk
 from nltk.tokenize import word_tokenize
 from nltk.stem import PorterStemmer
 from nltk.corpus import stopwords
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 # Logging section
 logger = log.getLogger(__name__)
@@ -89,17 +90,14 @@ def stem_tokens(tokens):
     tokens (list of str): List of tokens.
 
     Returns:
-    str: Stemmed text.
+    list: Stemmed text.
     """
     stemmer = PorterStemmer()
 
     # Stemming for each token
     stemmed_tokens = [stemmer.stem(token) for token in tokens]
 
-    # Merge tokens into sentence
-    stemmed_text = " ".join(stemmed_tokens)
-
-    return stemmed_text
+    return stemmed_tokens
 
 
 def remove_stopwords(tokens):
@@ -114,3 +112,22 @@ def remove_stopwords(tokens):
     """
     filtered_tokens = [token for token in tokens if token.lower() not in stop_words]
     return filtered_tokens
+
+
+def vectorize_text(texts):
+    """
+    Vectorizes a list of texts using TF-IDF.
+
+    Args:
+    texts (list of str): List of texts to be vectorized.
+
+    Returns:
+    scipy.sparse.csr_matrix: TF-IDF matrix representing the texts.
+    """
+    # Initialization of TF-IDF object
+    vectorizer = TfidfVectorizer()
+
+    # Vectorization of texts
+    tfidf_matrix = vectorizer.fit_transform(texts)
+
+    return tfidf_matrix
