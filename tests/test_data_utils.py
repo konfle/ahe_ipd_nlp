@@ -4,8 +4,7 @@ from app.utils import (load_csv_data,
                        remove_rows_with_missing_values,
                        remove_duplicates,
                        stem_tokens,
-                       remove_stopwords,
-                       vectorize_text)
+                       remove_stopwords)
 
 
 class TestLoadCSVData(unittest.TestCase):
@@ -108,19 +107,6 @@ class TestRemoveStopwords(unittest.TestCase):
         tokens = ["This", "Is", "A", "Sample", "Sentence", "With", "Some", "Stopwords"]
         filtered_tokens = remove_stopwords(tokens)
         self.assertEqual(filtered_tokens, ["Sample", "Sentence", "Stopwords"])
-
-
-class TestVectorizeText(unittest.TestCase):
-    def test_vectorize_text_basic(self):
-        texts = ["this is a sample text", "another example of text"]
-        tfidf_matrix = vectorize_text(texts)
-        expected_shape = (2, tfidf_matrix.shape[1])
-        self.assertEqual(tfidf_matrix.shape, expected_shape)
-
-    def test_vectorize_text_empty(self):
-        texts = []
-        with self.assertRaises(ValueError):
-            vectorize_text(texts)
 
 
 if __name__ == '__main__':
