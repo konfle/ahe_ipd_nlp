@@ -1,38 +1,94 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Email Classification Result</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <h1>Email Classification Result</h1>-->
+<!--    <p><strong>Result:</strong> {{ result }}</p>-->
+
+<!--    {% if metrics %}-->
+<!--    <h2>Evaluation Metrics:</h2>-->
+<!--    <p><strong>Accuracy:</strong> {{ metrics.accuracy }}</p>-->
+<!--    <p><strong>Precision:</strong> {{ metrics.precision }}</p>-->
+<!--    <p><strong>Recall:</strong> {{ metrics.recall }}</p>-->
+<!--    <p><strong>F1 Score:</strong> {{ metrics.f1 }}</p>-->
+<!--    <h3>Confusion Matrix:</h3>-->
+<!--    <table border="1">-->
+<!--        <tr>-->
+<!--            <td></td>-->
+<!--            <td><strong>Predicted Spam</strong></td>-->
+<!--            <td><strong>Predicted Not Spam</strong></td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td><strong>Actual Spam</strong></td>-->
+<!--            <td>{{ metrics.conf_matrix.true_positive }}</td>-->
+<!--            <td>{{ metrics.conf_matrix.false_negative }}</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td><strong>Actual Not Spam</strong></td>-->
+<!--            <td>{{ metrics.conf_matrix.false_positive }}</td>-->
+<!--            <td>{{ metrics.conf_matrix.true_negative }}</td>-->
+<!--        </tr>-->
+<!--    </table>-->
+<!--    {% endif %}-->
+<!--</body>-->
+<!--</html>-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Email Classification Result</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #f8f9fa, #6c757d);
+        }
+        .container {
+            margin-top: 50px;
+        }
+        table {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Email Classification Result</h1>
-    <p><strong>Result:</strong> {{ result }}</p>
+    <div class="container">
+        <h1>Email Classification Result</h1>
+        <p><strong>Result:</strong> {{ result }}</p>
 
-    {% if metrics %}
-    <h2>Evaluation Metrics:</h2>
-    <p><strong>Accuracy:</strong> {{ metrics.accuracy }}</p>
-    <p><strong>Precision:</strong> {{ metrics.precision }}</p>
-    <p><strong>Recall:</strong> {{ metrics.recall }}</p>
-    <p><strong>F1 Score:</strong> {{ metrics.f1 }}</p>
-    <h3>Confusion Matrix:</h3>
-    <table border="1">
-        <tr>
-            <td></td>
-            <td><strong>Predicted Spam</strong></td>
-            <td><strong>Predicted Not Spam</strong></td>
-        </tr>
-        <tr>
-            <td><strong>Actual Spam</strong></td>
-            <td>{{ metrics.conf_matrix.true_positive }}</td>
-            <td>{{ metrics.conf_matrix.false_negative }}</td>
-        </tr>
-        <tr>
-            <td><strong>Actual Not Spam</strong></td>
-            <td>{{ metrics.conf_matrix.false_positive }}</td>
-            <td>{{ metrics.conf_matrix.true_negative }}</td>
-        </tr>
-    </table>
-    {% endif %}
+        {% if metrics %}
+        <h2>Evaluation Metrics:</h2>
+        <p><strong>Accuracy:</strong> {{ metrics.accuracy }}</p>
+        <p><strong>Precision:</strong> {{ metrics.precision }}</p>
+        <p><strong>Recall:</strong> {{ metrics.recall }}</p>
+        <p><strong>F1 Score:</strong> {{ metrics.f1 }}</p>
+        <h3>Confusion Matrix:</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Predicted Spam</th>
+                    <th>Predicted Not Spam</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Actual Spam</strong></td>
+                    <td>{{ metrics.conf_matrix.true_positive }}</td>
+                    <td>{{ metrics.conf_matrix.false_negative }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Actual Not Spam</strong></td>
+                    <td>{{ metrics.conf_matrix.false_positive }}</td>
+                    <td>{{ metrics.conf_matrix.true_negative }}</td>
+                </tr>
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
 </body>
 </html>

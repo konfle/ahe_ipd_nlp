@@ -4,13 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Email Classification</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #f8f9fa, #6c757d);
+        }
+    </style>
 </head>
 <body>
-    <h1>Email Classification</h1>
-    <form action="/classify" method="post">
-        <label for="email_text">Enter email text:</label><br>
-        <textarea id="email_text" name="email_text" rows="4" cols="50"></textarea><br>
-        <input type="submit" value="Classify">
-    </form>
+    <div class="container mt-5">
+        <h1>Email Classification</h1>
+        <form action="/classify" method="post">
+            <div class="form-group">
+                <textarea class="form-control" id="email_text" name="email_text" rows="4" placeholder="Type your email here..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Classify</button>
+        </form>
+    </div>
 </body>
 </html>
