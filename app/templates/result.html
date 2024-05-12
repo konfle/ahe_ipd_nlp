@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Classification Result</title>
+</head>
+<body>
+    <h1>Email Classification Result</h1>
+    <p><strong>Result:</strong> {{ result }}</p>
+
+    {% if metrics %}
+    <h2>Evaluation Metrics:</h2>
+    <p><strong>Accuracy:</strong> {{ metrics.accuracy }}</p>
+    <p><strong>Precision:</strong> {{ metrics.precision }}</p>
+    <p><strong>Recall:</strong> {{ metrics.recall }}</p>
+    <p><strong>F1 Score:</strong> {{ metrics.f1 }}</p>
+    <h3>Confusion Matrix:</h3>
+    <table border="1">
+        <tr>
+            <td></td>
+            <td><strong>Predicted Spam</strong></td>
+            <td><strong>Predicted Not Spam</strong></td>
+        </tr>
+        <tr>
+            <td><strong>Actual Spam</strong></td>
+            <td>{{ metrics.conf_matrix.true_positive }}</td>
+            <td>{{ metrics.conf_matrix.false_negative }}</td>
+        </tr>
+        <tr>
+            <td><strong>Actual Not Spam</strong></td>
+            <td>{{ metrics.conf_matrix.false_positive }}</td>
+            <td>{{ metrics.conf_matrix.true_negative }}</td>
+        </tr>
+    </table>
+    {% endif %}
+</body>
+</html>
