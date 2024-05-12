@@ -15,8 +15,16 @@
     <div class="container mt-5">
         <h1>Email Classification</h1>
         <form action="/classify" method="post">
+            <label for="classifier">Insert Your Email Message:</label>
             <div class="form-group">
                 <textarea class="form-control" id="email_text" name="email_text" rows="4" placeholder="Type your email here..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="classifier">Select classifier:</label>
+                <select class="form-control" id="classifier" name="classifier">
+                    <option value="naive_bayes">Naive Bayes</option>
+                    <option value="not_implemented_yet">Not Implemented Yet</option>
+                </select>
             </div>
             <button type="submit" class="btn btn-primary">Classify</button>
         </form>
