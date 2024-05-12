@@ -1,4 +1,6 @@
 import logging as log
+import re
+
 import pandas as pd
 import nltk
 from nltk.tokenize import word_tokenize
@@ -116,22 +118,3 @@ def remove_stopwords(tokens):
     filtered_tokens = [token for token in tokens if token.lower() not in stop_words]
 
     return filtered_tokens
-
-
-def vectorize_text(texts):
-    """
-    Vectorizes a list of texts using TF-IDF.
-
-    Args:
-    texts (list of str): List of texts to be vectorized.
-
-    Returns:
-    scipy.sparse.csr_matrix: TF-IDF matrix representing the texts.
-    """
-    # Initialization of TF-IDF object
-    vectorizer = TfidfVectorizer()
-
-    # Vectorization of texts
-    tfidf_matrix = vectorizer.fit_transform(texts)
-
-    return tfidf_matrix
