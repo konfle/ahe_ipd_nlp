@@ -115,15 +115,17 @@ class NaiveBayesClassifier:
         prediction = self.classifier.predict(text_tfidf)
         return prediction[0]
 
-    def save_classifier(self, filename):
+    def save_classifier(self, filename, train_metrics):
         """
         Save the trained classifier to a file using pickle.
 
         Args:
             filename (str): Name of the file to save the classifier to.
+            train_metrics (dict): Dictionary containing evaluation metrics and confusion matrix.
         """
         with open(filename, 'wb') as file:
-            pickle.dump((self.classifier, self.vectorizer, self.text_column, self.label_column), file)
+            pickle.dump((self.classifier, self.vectorizer, self.text_column, self.label_column, train_metrics),
+                        file)
 
     @classmethod
     def load_classifier(cls, filename, file_path):
@@ -136,10 +138,11 @@ class NaiveBayesClassifier:
 
         Returns:
             NaiveBayesClassifier: An instance of the NaiveBayesClassifier with the loaded classifier.
+            dict: Dictionary containing evaluation metrics and confusion matrix.
         """
         with open(filename, 'rb') as file:
-            classifier, vectorizer, text_column, label_column = pickle.load(file)
+            classifier, vectorizer, text_column, label_column, train_metrics = pickle.load(file)
         nb_classifier = cls(file_path, text_column, label_column)
         nb_classifier.classifier = classifier
         nb_classifier.vectorizer = vectorizer
-        return nb_classifier
+        return nb_classifier, train_metrics
