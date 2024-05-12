@@ -21,14 +21,15 @@
     <div class="container">
         <h1>Email Classification Result</h1>
         <p><strong>Result:</strong> {{ result }}</p>
-
+        <br>
         {% if metrics %}
-        <h2>Evaluation Metrics:</h2>
-        <p><strong>Accuracy:</strong> {{ metrics.accuracy }}</p>
-        <p><strong>Precision:</strong> {{ metrics.precision }}</p>
-        <p><strong>Recall:</strong> {{ metrics.recall }}</p>
-        <p><strong>F1 Score:</strong> {{ metrics.f1 }}</p>
-        <h3>Confusion Matrix:</h3>
+        <h2>Evaluation Metrics</h2>
+        <p><strong>Accuracy:</strong> {{ '%.2f'|format(metrics.accuracy * 100) }}%</p>
+        <p><strong>Precision:</strong> {{ '%.2f'|format(metrics.precision * 100) }}%</p>
+        <p><strong>Recall:</strong> {{ '%.2f'|format(metrics.recall * 100) }}%</p>
+        <p><strong>F1 Score:</strong> {{ '%.2f'|format(metrics.f1 * 100) }}%</p>
+        <br>
+        <h3>Confusion Matrix</h3>
         <table class="table">
             <thead>
                 <tr>
