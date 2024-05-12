@@ -1,12 +1,11 @@
 import logging as log
-import re
 
 import pandas as pd
 import nltk
 from nltk.tokenize import word_tokenize
 from nltk.stem import PorterStemmer
 from nltk.corpus import stopwords
-from sklearn.feature_extraction.text import TfidfVectorizer
+
 
 # Logging section
 logger = log.getLogger(__name__)
